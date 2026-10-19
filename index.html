@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Waterlife: swim as an octopus from the coral reef to the deep sea and learn about real marine life.">
+  <title>Waterlife — An Octopus Ocean Adventure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="game" aria-label="Ocean game world"></canvas>
+
+  <div id="hud" class="hidden">
+    <div class="panel vitals">
+      <div class="bar">
+        <span class="label">Health</span>
+        <div class="track"><div id="hpFill" class="fill hp"></div></div>
+      </div>
+      <div class="bar">
+        <span class="label">Ink</span>
+        <div class="track"><div id="inkFill" class="fill ink"></div></div>
+      </div>
+    </div>
+
+    <div class="panel info">
+      <div class="depth"><span id="depthText">0 m</span> <span class="sep">·</span> <span id="zoneText">Sunlit Zone</span></div>
+      <div class="score">
+        <span class="pearl"></span><b id="pearlText">0</b> pearls
+        <span class="sep">·</span>
+        <b id="foundText">0</b>/<span id="totalText">0</span> species
+      </div>
+      <button id="journalBtn" class="chip-btn">Journal <kbd>J</kbd></button>
+    </div>
+
+    <div id="gauge" aria-hidden="true">
+      <div class="seg sunlit"><span>Sunlit</span></div>
+      <div class="seg twilight"><span>Twilight</span></div>
+      <div class="seg midnight"><span>Midnight</span></div>
+      <div id="gaugeMarker"></div>
+    </div>
+
+    <div id="touchControls">
+      <button id="btnCamo" class="round">Hide</button>
+      <button id="btnInk" class="round ink">Ink</button>
+    </div>
+  </div>
+
+  <button id="prompt" class="hidden"><span class="desk">Study <kbd>E</kbd></span><span class="mob">Tap to study</span></button>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <div id="modal" class="hidden">
+    <div id="sheet" class="sheet" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <script src="js/creatures.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
