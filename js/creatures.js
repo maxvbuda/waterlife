@@ -865,3 +865,16 @@ const SPECIES = [
 ];
 
 const SPECIES_BY_ID = Object.fromEntries(SPECIES.map((sp) => [sp.id, sp]));
+
+// How each 3D model (models/<id>.glb) is shown: see-through parts, glowing parts, and the starting camera angle.
+const MODEL_STYLE = {
+  octopus: { yaw: 0.35, pitch: 0.15 },
+  seastar: { pitch: 0.9 },
+  dumbo: { yaw: 0.35, pitch: 0.15 },
+  moonjelly: { pitch: 0.3, alpha: { Bell: 0.38, Margin: 0.6, Tentacles: 0.7, OralArms: 0.8, Gonads: 0.9 } },
+  lanternfish: { glow: ['Lights'] },
+  hatchetfish: { glow: ['Lights'], pitch: 0.35 },
+  anglerfish: { glow: ['Lure', 'Filaments'] },
+  vampiresquid: { glow: ['Lights'] },
+  gulpereel: { glow: ['Light', 'Tassels'] },
+};

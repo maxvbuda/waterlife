@@ -394,9 +394,22 @@
     loop();
   }
 
+  // Swaps a 2D portrait for the creature's spinning 3D model once it has loaded. If the model can't load
+  // (no WebGL, or the page was opened from disk), the 2D drawing simply stays.
+  function show3d(canvas3d, id, fallback) {
+    ModelViewer.show(canvas3d, id, MODEL_STYLE[id]).then(() => {
+      if (!canvas3d.isConnected) return;
+      canvas3d.classList.remove('hidden');
+      if (fallback) fallback.remove();
+      const hint = canvas3d.parentElement.querySelector('.hint3d');
+      if (hint) hint.classList.remove('hidden');
+    }, () => {});
+  }
+
   function showStart() {
     const fact = OCTO_FACTS[state.factIndex % OCTO_FACTS.length];
     openModal(`
+      <canvas class="hero3d hidden" aria-label="3D model of an octopus. Drag to spin it."></canvas>
       <div class="title">Waterlife</div>
       <p class="lead">You’re a curious octopus. Explore from the sunny coral reef down to the pitch-black deep, and study every creature you meet to fill your <b>Field Journal</b>.</p>
       <div class="factbox"><span class="kicker">Octopus fact</span>${fact}</div>
@@ -415,6 +428,7 @@
     `, 'start');
     $('#startBtn').onclick = startGame;
     escHandler = startGame;
+    show3d(sheet.querySelector('.hero3d'), 'octopus');
   }
 
   function startGame() {
@@ -430,16 +444,22 @@
   function showCard(sp, isNew, onDone) {
     const z = ZONES[sp.zone];
     openModal(`
-      <div class="card-art"><canvas class="portrait"></canvas>${isNew ? '<span class="badge">New species! +1 pearl</span>' : ''}</div>
+      <div class="card-art art-${sp.zone}">
+        <canvas class="portrait"></canvas>
+        <canvas class="model3d hidden" aria-label="3D model of the ${sp.name}. Drag to spin it."></canvas>
+        ${isNew ? '<span class="badge">New species! +1 pearl</span>' : ''}
+        <span class="hint3d hidden">Drag to spin</span>
+      </div>
       <div class="chip zone-${sp.zone}">${z.name} · ${sp.lives}</div>
       <h2>${sp.name}</h2>
       <p class="sci">${sp.sci}</p>
       <ul class="facts">${sp.facts.map((f) => `<li>${f}</li>`).join('')}</ul>
       <button class="primary" id="cardDone">${isNew ? 'Keep exploring' : 'Back'}</button>
     `, 'card');
-    const cv = sheet.querySelector('canvas');
+    const cv = sheet.querySelector('canvas.portrait');
     setupPortrait(cv, 480, 240);
     animatePortrait(cv, sp);
+    show3d(sheet.querySelector('canvas.model3d'), sp.id, cv);
     const done = () => (onDone ? onDone() : closeModal());
     $('#cardDone').onclick = done;
     escHandler = done;

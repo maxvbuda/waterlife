@@ -264,7 +264,25 @@ button.secondary:hover { background: #d3e3f0; }
 
 /* fact card */
 .card-art { position: relative; margin: -24px -24px 14px; }
-.card-art canvas { display: block; width: 100%; border-radius: 22px 22px 0 0; }
+.card-art { overflow: hidden; border-radius: 22px 22px 0 0; }
+.card-art canvas { display: block; width: 100%; }
+.card-art canvas.model3d { aspect-ratio: 2 / 1; cursor: grab; touch-action: none; }
+.card-art canvas.model3d:active { cursor: grabbing; }
+.art-sunlit { background: linear-gradient(#6fd0f2, #1f80ba); }
+.art-twilight { background: linear-gradient(#1c5590, #0a2347); }
+.art-midnight { background: linear-gradient(#0b1a36, #02050d); }
+.hint3d {
+  position: absolute; right: 12px; bottom: 10px;
+  font-size: 12px; font-weight: 800; color: #fff;
+  background: rgba(0, 0, 0, 0.3); padding: 3px 10px; border-radius: 99px;
+  pointer-events: none;
+}
+.hero3d {
+  display: block; width: calc(100% + 48px); margin: -24px -24px 0; height: 180px;
+  border-radius: 22px 22px 0 0;
+  background: radial-gradient(circle at 50% 40%, #2f9fd6, #0b3f6e 75%);
+  cursor: grab; touch-action: none;
+}
 .badge {
   position: absolute; left: 14px; top: 14px;
   background: var(--gold); color: #3b2a00;
@@ -351,6 +369,7 @@ button.secondary:hover { background: #d3e3f0; }
   #gauge .seg span { display: none; }
   .sheet { padding: 18px; }
   .card-art { margin: -18px -18px 12px; }
+  .hero3d { width: calc(100% + 36px); margin: -18px -18px 0; height: 170px; }
   .sheet.start .title { font-size: 42px; }
   .sheet h2 { font-size: 22px; }
 }
